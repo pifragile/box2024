@@ -1,5 +1,5 @@
 let pg;
-let cs = isRendering ? 8000 : 2000;
+let cs = isRendering ? 8000 : 4000;
 let cs2 = cs * 0.5;
 
 
@@ -88,6 +88,9 @@ let s;
 let m0, m1, m2, m3, m4;
 function drawArt() {
         setPalette();
+        random1ofx()        
+        random1ofx()
+        random1ofx()
         m0 = random1ofx()
         m1 = random1ofx()
         m2 = random1ofx()
