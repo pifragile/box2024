@@ -102,7 +102,7 @@ function drawArt() {
         pg.stroke(palette[0]);
         pg.fill(palette[0]);
         b.rect();
-        b = b.subBox(0.8);
+        b = b.subBox(0.88);
         s = (Math.floor(m0 * 6) + 1) * 2;
         grid = b.gridify(s, s);
         const pal = palette.slice(1);
