@@ -2,7 +2,6 @@ let pg;
 let cs = isRendering ? 8000 : 4000;
 let cs2 = cs * 0.5;
 
-
 function draw() {
     seedRandomness();
     pg.clear();
@@ -34,13 +33,12 @@ function setImage() {
     is = min(windowHeight, windowWidth);
     resizeCanvas(is, is);
 
-    shader(myShader)
+    shader(myShader);
     myShader.setUniform("u_resolution", [is, is]);
     myShader.setUniform("u_background", pg);
     myShader.setUniform("u_pixeldensity", pixelDensity());
     rect(0, 0, cs, cs);
 }
-
 
 function preload() {
     myShader = loadShader("shader.vert", "shader.frag");
@@ -48,8 +46,7 @@ function preload() {
 let myShader;
 
 let palettes = [
-    "https://coolors.co/f8dbbb-0065bd-ffb700-e02d26",
-     "https://coolors.co/ebe7dc-ed4316-0d52da-f399bf-0c8d55-f3be0b",
+    "https://coolors.co/ff0080-99ecff-ff8900-ffeff0-2400c0-0099d1-ffab00",
 ];
 
 let permutePalettes = true;
@@ -74,7 +71,6 @@ function setPalette() {
 //////Sketch
 ////////////////////
 
-
 //params
 // 0: num boxes
 // 1: palette & permutation
@@ -87,78 +83,79 @@ function cornerVertex(corner) {
 let s;
 let m0, m1, m2, m3, m4;
 function drawArt() {
-        setPalette();
-        random1ofx()        
-        random1ofx()
-        random1ofx()
-        m0 = random1ofx()
-        m1 = random1ofx()
-        m2 = random1ofx()
-        m3 = random1ofx()
-        m4 = random1ofx()
-        pg.strokeWeight(0.0005 * cs)
-        pg.strokeWeight(0)
-        let b = new Box(0, 0, cs, cs);
-        pg.stroke(palette[0]);
-        pg.fill(palette[0]);
-        b.rect();
-        b = b.subBox(0.88);
-        s = (Math.floor(m0 * 6) + 1) * 2;
-        grid = b.gridify(s, s);
-        const pal = palette.slice(1);
-        splitBox(b, Math.floor(random1ofx() * 2), palette);
-        const palFs = [
-            (i, j) => 0,
-            (i, j) => i + j,
-            (i, j) => i,
-            (i, j) => j,
-            (i, j) => (j / 2) % 2,
-            (i, j) => Math.floor(i / 2) % 2,
-            (i, j) => Math.floor((j + i) / 2) % 2,
-            (i, j) => ((i + j) % s < s / 2 ? 1 : 0),
-            (i, j) => (Math.floor(Math.abs(i - s * 0.5)) > s * 0.24 ? 0 : 1),
-            (i, j) => (Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.2 ? 0 : 1),
-            (i, j) =>
-                Math.floor(Math.abs(i - s * 0.5)) > s * 0.2 &&
-                Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.2
-                    ? 0
-                    : 1,
-            (i, j) =>
-                Math.floor(Math.abs(i - s * 0.5)) > s * 0.25 ||
-                Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.25
-                    ? 0
-                    : 1,
-            (i, j) => Math.floor(random1ofx()) * pal.length,
-        ];
-        const palF = linearElem(palFs, m1);
-        for (let i = 0; i < grid.length; i++) {
-            const row = grid[i];
-            for (let j = 0; j < row.length; j++) {
-                if (i % 2 === 1 && j % 2 === 0) {
-                    let sb = grid[i][j];
-                    let sbShadow = grid[i - 1][j + 1];
-                    let col = pal[palF(i, j) % pal.length];
-                    pg.fill(col);
-                    pg.stroke(col);
-                    sb.rect();
-                    // if(i === splitX && j === splitY) {
-                    //     splitBox(sb, 7, palette.slice(1))
-                    // }
+    setPalette();
+    for (let _i = 0; _i < 75; _i++) {
+        random1ofx();
+    }
 
-                    pg.fill(0);
-                    pg.stroke(0);
-                    pg.beginShape();
-                    cornerVertex(sb.tl);
-                    cornerVertex(sbShadow.tl);
-                    cornerVertex(sbShadow.bl);
-                    cornerVertex(sbShadow.br);
-                    cornerVertex(sb.br);
-                    cornerVertex(sb.bl);
-                    cornerVertex(sb.tl);
-                    pg.endShape();
-                }
+    m0 = random1ofx();
+    m1 = random1ofx();
+    m2 = random1ofx();
+    m3 = random1ofx();
+    m4 = random1ofx();
+    pg.strokeWeight(0.0005 * cs);
+    pg.strokeWeight(0);
+    let b = new Box(0, 0, cs, cs);
+    pg.stroke(palette[0]);
+    pg.fill(palette[0]);
+    b.rect();
+    b = b.subBox(0.88);
+    s = (Math.floor(m0 * 6) + 1) * 2;
+    grid = b.gridify(s, s);
+    const pal = palette.slice(1);
+    splitBox(b, Math.floor(random1ofx() * 2), palette);
+    const palFs = [
+        (i, j) => 0,
+        (i, j) => i + j,
+        (i, j) => i,
+        (i, j) => j,
+        (i, j) => (j / 2) % 2,
+        (i, j) => Math.floor(i / 2) % 2,
+        (i, j) => Math.floor((j + i) / 2) % 2,
+        (i, j) => ((i + j) % s < s / 2 ? 1 : 0),
+        (i, j) => (Math.floor(Math.abs(i - s * 0.5)) > s * 0.24 ? 0 : 1),
+        (i, j) => (Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.2 ? 0 : 1),
+        (i, j) =>
+            Math.floor(Math.abs(i - s * 0.5)) > s * 0.2 &&
+            Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.2
+                ? 0
+                : 1,
+        (i, j) =>
+            Math.floor(Math.abs(i - s * 0.5)) > s * 0.25 ||
+            Math.floor(Math.abs(j + 1 - s * 0.5)) > s * 0.25
+                ? 0
+                : 1,
+        (i, j) => Math.floor(random1ofx()) * pal.length,
+    ];
+    const palF = linearElem(palFs, m1);
+    for (let i = 0; i < grid.length; i++) {
+        const row = grid[i];
+        for (let j = 0; j < row.length; j++) {
+            if (i % 2 === 1 && j % 2 === 0) {
+                let sb = grid[i][j];
+                let sbShadow = grid[i - 1][j + 1];
+                let col = pal[palF(i, j) % pal.length];
+                pg.fill(col);
+                pg.stroke(col);
+                sb.rect();
+                // if(i === splitX && j === splitY) {
+                //     splitBox(sb, 7, palette.slice(1))
+                // }
+
+                pg.fill(0);
+                pg.stroke(0);
+                pg.beginShape();
+                cornerVertex(sb.tl);
+                cornerVertex(sbShadow.tl);
+                cornerVertex(sbShadow.bl);
+                cornerVertex(sbShadow.br);
+                cornerVertex(sb.br);
+                cornerVertex(sb.bl);
+                cornerVertex(sb.tl);
+                pg.endShape();
             }
         }
+    }
 }
 
 function shuffleArr(array, rand) {
@@ -359,7 +356,7 @@ function splitBox(b, depth, colors) {
     } else {
         var d = depth - 1;
         gr = 0.5;
-        let offset = Math.round(m2)
+        let offset = Math.round(m2);
         if (offset) {
             // vertical split
             var s = gr * b.w;
